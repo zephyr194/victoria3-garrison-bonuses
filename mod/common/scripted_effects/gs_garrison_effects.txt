@@ -1,50 +1,93 @@
-# State scope. Historical political changes are not temporary modifiers.
+# State scope. v0.3 qualifications use monthly observations, not proven uptime.
 gs_reset_service = {
-    remove_variable = gs_service_months
+    set_variable = { name = gs_service_months value = 0 }
+    set_variable = { name = gs_civic_months value = 0 }
+    set_variable = { name = gs_interruption_months value = 0 }
+    set_variable = { name = gs_service_schema value = gs_schema_version }
     remove_variable = gs_service_owner
+}
+
+gs_decay_security = {
+    change_variable = { name = gs_service_months add = -1 }
+    clamp_variable = { name = gs_service_months min = 0 max = gs_deradicalization_delay_months }
+}
+
+gs_decay_civic = {
+    change_variable = { name = gs_civic_months add = -1 }
+    clamp_variable = { name = gs_civic_months min = 0 max = gs_loyalty_delay_months }
 }
 
 gs_update_state = {
     gs_clear_order = yes
+    # Old v0.2 time must not unlock civic service or survive the changed thresholds.
     if = {
         limit = {
-            has_variable = gs_service_owner
-            NOT = { var:gs_service_owner = owner }
+            OR = {
+                NOT = { has_variable = gs_service_schema }
+                NOT = { var:gs_service_schema = gs_schema_version }
+                NOT = { has_variable = gs_service_owner }
+                NOT = { var:gs_service_owner = owner }
+            }
         }
         gs_reset_service = yes
     }
     if = {
-        limit = { gs_state_service_eligible = yes }
-        set_variable = { name = gs_staff value = gs_staff }
+        limit = { gs_state_controlled = yes }
+        set_variable = { name = gs_service_owner value = owner }
+        set_variable = { name = gs_staff value = 0 }
         if = {
-            limit = { var:gs_staff > 0 }
-            set_variable = { name = gs_service_owner value = owner }
-            if = {
-                limit = { NOT = { has_variable = gs_service_months } }
-                set_variable = { name = gs_service_months value = 0 }
+            limit = { gs_state_service_eligible = yes }
+            set_variable = { name = gs_staff value = gs_staff }
+        }
+        if = {
+            limit = {
+                gs_state_service_eligible = yes
+                var:gs_staff > 0
             }
-            change_variable = { name = gs_service_months add = 1 }
-            clamp_variable = { name = gs_service_months min = 0 max = gs_loyalty_delay_months }
+            set_variable = { name = gs_interruption_months value = 0 }
+            set_variable = { name = gs_coverage_snapshot value = gs_coverage }
+            set_variable = { name = gs_radical_share value = turmoil }
             set_variable = { name = gs_relief value = gs_relief }
             gs_apply_order = yes
             if = {
+                limit = { gs_security_qualified = yes }
+                change_variable = { name = gs_service_months add = 1 }
+                clamp_variable = { name = gs_service_months min = 0 max = gs_deradicalization_delay_months }
+            }
+            else = { gs_decay_security = yes }
+            if = {
+                limit = { gs_civic_qualified = yes }
+                change_variable = { name = gs_civic_months add = 1 }
+                clamp_variable = { name = gs_civic_months min = 0 max = gs_loyalty_delay_months }
+            }
+            else = { gs_decay_civic = yes }
+            if = {
                 limit = {
+                    gs_radical_effects_enabled = yes
+                    gs_security_qualified = yes
                     var:gs_service_months >= gs_deradicalization_delay_months
-                    turmoil > gs_radical_floor
+                    var:gs_radical_share > gs_radical_floor
                 }
                 add_radicals_in_state = { value = gs_radical_delta }
             }
+            # Loyalty intentionally has no state-wide effect call. Civic time alone
+            # does not establish individual acceptance/SoL or neutral-only targeting.
+        }
+        else = {
+            gs_decay_security = yes
+            gs_decay_civic = yes
+            change_variable = { name = gs_interruption_months add = 1 }
+            clamp_variable = { name = gs_interruption_months min = 0 max = gs_interruption_reset_months }
             if = {
-                limit = {
-                    var:gs_service_months >= gs_loyalty_delay_months
-                    gs_loyalty_conditions = yes
-                }
-                add_loyalists_in_state = { value = gs_loyalist_delta }
+                limit = { var:gs_interruption_months >= gs_interruption_reset_months }
+                set_variable = { name = gs_service_months value = 0 }
+                set_variable = { name = gs_civic_months value = 0 }
             }
         }
-        else = { gs_reset_service = yes }
     }
     else = { gs_reset_service = yes }
     remove_variable = gs_staff
     remove_variable = gs_relief
+    remove_variable = gs_coverage_snapshot
+    remove_variable = gs_radical_share
 }

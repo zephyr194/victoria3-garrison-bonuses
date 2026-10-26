@@ -35,7 +35,7 @@ def main():
         # Namespaced custom keys used as effect / trigger / numeric references.
         references.update(re.findall(r'\b(?:gs_|building_gs_|pm_gs_|pmg_gs_)\w+\b', re.sub(r'#[^\n]*', '', content)))
         count += 1
-    runtime_vars = {'gs_service_months', 'gs_service_owner', 'gs_staff', 'gs_relief'}
+    runtime_vars = {'gs_service_months', 'gs_civic_months', 'gs_interruption_months', 'gs_service_schema', 'gs_service_owner', 'gs_staff', 'gs_relief', 'gs_coverage_snapshot', 'gs_radical_share'}
     missing = references - definitions.keys() - runtime_vars
     if missing:
         raise ValueError('Unresolved custom keys: ' + ', '.join(sorted(missing)))

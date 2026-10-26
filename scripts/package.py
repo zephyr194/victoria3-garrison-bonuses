@@ -18,9 +18,10 @@ def main():
     if not status['game_verified'] and not args.experimental:
         parser.error('No game verification recorded; only --experimental packaging is permitted')
     subprocess.run([sys.executable, str(ROOT / 'tools/validate.py')], check=True)
+    version = json.loads((ROOT / 'balance.json').read_text())['mod_version']
     suffix = '-experimental' if args.experimental else ''
     descriptor = f'''name="Garrison Bonuses {args.target}{suffix}"
-version="0.2.0{suffix}"
+version="{version}{suffix}"
 supported_version="{args.target}.*"
 path="mod/gs_garrison"
 tags={{ "Gameplay" "Military" }}

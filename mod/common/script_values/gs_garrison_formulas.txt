@@ -1,4 +1,4 @@
-# State scope. Employment filters exclude other buildings and dependents.
+# State scope. Employed local workforce only; verify partial employment in game.
 gs_staff = {
     value = 0
     every_scope_pop = {
@@ -30,24 +30,18 @@ gs_relief = {
     multiply = gs_tier_step
 }
 
-# Negative state effect is experimental: verify actual population bookkeeping.
+# Budget uses the pre-effect radical fraction, capped by stock and remaining room.
+# Negative state effect remains disabled by default until engine semantics are tested.
 gs_radical_delta = {
-    value = turmoil
+    value = var:gs_radical_share
     subtract = gs_radical_floor
     min = 0
+    max = gs_monthly_radical_reduction
     max = {
-        value = gs_monthly_radical_reduction
-        multiply = gs_coverage
+        value = var:gs_radical_share
+        multiply = gs_monthly_radical_stock_limit
     }
+    multiply = var:gs_coverage_snapshot
     multiply = -1
 }
-
-gs_loyalist_delta = {
-    value = gs_loyalist_ceiling
-    subtract = loyalists
-    min = 0
-    max = {
-        value = gs_monthly_loyalist_gain
-        multiply = gs_coverage
-    }
-}
+# No loyalist adapter: state-wide effects cannot select the qualified neutral pool.

@@ -21,5 +21,20 @@
     "grain": 10,
     "fabric": 5,
     "paper": 2
-  }
+  },
+  "deradicalization_minimum_coverage": 0.2,
+  "loyalty_minimum_coverage": 0.5,
+  "monthly_radical_stock_limit": 0.005,
+  "monthly_neutral_stock_limit": 0.001,
+  "interruption_reset_months": 2,
+  "experimental_radical_effects_enabled": false,
+  "civic_input_goods_per_level": {
+    "grain": 5,
+    "fabric": 2,
+    "paper": 2,
+    "services": 5
+  },
+  "supply_policy": "boolean_block",
+  "schema_version": 3,
+  "mod_version": "0.3.0"
 }

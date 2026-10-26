@@ -42,3 +42,11 @@
 未验证：负数去激进效果的精确人口转化语义、警察/法令叠加、1.14 正式版、性能与多人同步。
 
 这份研究依据接口和明确机制，不是对玩家意见频率的统计，也不宣称社区普遍偏好新建筑。
+
+## v0.3 接口复核与保守接入（2026-10-26）
+
+重新读取两版生成effects/triggers/modifiers：新增服务投入字段goods_input_services_add存在；building_has_goods_shortage只有布尔接口。market_goods_shortage_ratio是市场商品作用域，不能直接冒充某建筑的本地短缺强度。
+
+两版均提供pop_neutral_fraction、pop_radical_fraction、pop_loyalist_fraction和pop_acceptance读数；但add_loyalists_in_state仅确认州作用域及文化/宗教/职业等过滤，尚未证明合格中立人口的精确定向变动。故v0.3跟踪军民服务资格，模型实现目标池限幅，运行脚本不添加全州忠诚。去激进负数调用保留实验门且默认关闭。
+
+此决定修正v0.2直接启用政治效果的实验行为；旧存档已经产生的态度变化不会被逆转。停用效果不表示否定设计目标，而是按此前方案要求等待人口账本和定向适配证据。

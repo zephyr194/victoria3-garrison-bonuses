@@ -65,10 +65,9 @@ class ScriptMathTests(unittest.TestCase):
                 context = {'state_population': population, 'var:gs_staff': staff}
                 self.assertEqual(float(evaluate('gs_relief', context)), calculate(population, staff)['penalty_relief'])
 
-    def test_political_effects_bounded(self):
-        context = {'gs_coverage': .5, 'turmoil': .0501, 'loyalists': .3999}
-        self.assertEqual(evaluate('gs_radical_delta', context), Decimal('-.0001'))
-        self.assertEqual(evaluate('gs_loyalist_delta', context), Decimal('.0001'))
-        context.update(turmoil=.3, loyalists=.1)
-        self.assertEqual(evaluate('gs_radical_delta', context), Decimal('-.0005'))
-        self.assertEqual(evaluate('gs_loyalist_delta', context), Decimal('.00025'))
+    def test_radical_stock_and_residual_caps(self):
+        for radical, coverage, expected in [(.0501, 1, '-.0001'), (.04, 1, '0'),
+                                             (.3, .5, '-.0005'), (.1, 1, '-.0005'),
+                                             (.15, .5, '-.000375')]:
+            context = {'var:gs_radical_share': radical, 'var:gs_coverage_snapshot': coverage}
+            self.assertEqual(evaluate('gs_radical_delta', context), Decimal(expected))

@@ -6,6 +6,13 @@ on_monthly_pulse_country = {
 gs_monthly_country = {
     effect = {
         every_scope_state = {
+            limit = {
+                OR = {
+                    any_scope_building = { is_building_type = building_gs_garrison }
+                    has_variable = gs_service_owner
+                    has_variable = gs_service_months
+                }
+            }
             gs_update_state = yes
         }
     }

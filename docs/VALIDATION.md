@@ -1,23 +1,26 @@
-# Validation matrix
+# Validation matrix · v0.3
 
-| Target | Generated-doc comparison | Game loads | Political effects | Save/load | Multiplayer |
+| Target | Versioned interface evidence | Game loading | Population effects | Save/load | Multiplayer |
 |---|---|---|---|---|---|
-| 1.13.11 | Key interfaces present | Not run | Not run | Not run | Not run |
-| 1.14.5-openbeta | Key interfaces present | Not run | Not run | Not run | Not run |
+| 1.13.11 | Reviewed | Not run | Not run; radical call off, loyalty absent | Not run | Not run |
+| 1.14.5-openbeta | Reviewed | Not run | Not run; radical call off, loyalty absent | Not run | Not run |
 | 1.14 stable | No exact build evidence | Not run | Not run | Not run | Not run |
 
-Static validation and pure-model tests are separate from engine testing. Packaging cannot produce a non-experimental release while game_verified is false.
+Local checks: generation freshness, structural validation, arithmetic differentials, monthly control-flow differentials and experimental package generation. These checks do not establish game compatibility.
 
-Required in-game cases:
-1. Build facility: appears in government lens, government pays wages, jobs and all input goods visible; no field battalions created.
-2. Empty, partial/full staffed, surplus levels: correct counted workforce, coverage and cap; no unemployed/dependents counted.
-3. Standby and shortage: no active benefit; fixed infrastructure cost remains.
-4. Continuous months 1/2/3/5/6: political effects begin on correct month; state change, shutdown and shortage reset counter.
-5. High radical / low radical pops: negative input is accepted, no new radicals generated, no radical reduction below designed aggregate bound.
-6. Loyalty below/near 40%, high turmoil, unincorporated or poor living conditions: gates work and no double-counting of radical/loyalist transitions.
-7. 52 monthly ticks: no modifier accumulation; one active tier at most. Save/reload does not duplicate history effects.
-8. Owner transfer, revolution, occupation and split states: no inherited service time; controller logic works; measure residual modifier delay.
-9. Police and suppression decree: actual combined penalties and modifier signs verified; no impossible negative penalties.
-10. Chinese/English: all keys display; base asset paths resolve; tooltip values match actual behavior.
-11. AI facility effects are equal if present, but automatic AI building is intentionally not claimed.
-12. Exact 1.13 and 1.14 build, new/old save, late-game performance and multiplayer soak results recorded before release.
+## Required game cases
+1. Government lens, payroll, jobs and goods; no field battalions. Civic mode adds services/other goods while preserving the same order cap.
+2. Empty/partial/full staffing: count only employed workforce; compare 1000/2500/5000/10000 people in a million-person state.
+3. Standby: no benefits or inputs, fixed infrastructure remains; demolition releases it.
+4. Coverage at 19.99%/20%/49.99%/50%; security and civic counters have independent gates.
+5. Standing service never banks civic time. Failed qualifications decay one; two interrupted checks reset; recovery restarts.
+6. v0.2 save migrates with no inherited qualification. Owner/control changes reset; inspect partial occupation and split states.
+7. Default build must not mutate radical/loyalist population. The civic tooltip must explicitly state its current unavailable direct loyalty benefit.
+8. In a copied test save, deliberately enable the negative radical development gate and regenerate. Compare identical baseline saves and radical/neutral/loyal pools; verify sign, stock cap and floor before any default enablement. Record actual people, not merely effect input.
+9. Do not enable loyalty until a per-eligible-neutral adapter is proven. Model results alone are insufficient.
+10. Measure monthly observation gaps and month-end toggling; do not label snapshot checks as proven uptime.
+11. Police/decree combined penalties, modifier signs and clamp behavior; do not assume multiplicative stacking.
+12. Only one order tier; cleanup delay and 45-day expiry; save/reload, uninstall behavior, assets and both languages.
+13. Exact 1.13 and 1.14 patches, new/old saves, late-game profiling, AI and multiplayer before a release.
+
+Stable packaging remains blocked while game_verified is false.

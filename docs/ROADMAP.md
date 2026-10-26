@@ -1,15 +1,19 @@
 # Roadmap
 
-- [x] Inspect user-created repository and permissions (empty main).
-- [x] Compare HQ / manpower interfaces in two versioned engine-doc snapshots.
-- [x] Research permanent facility versus regional field-army presence.
-- [x] Design new positive and negative effects.
-- [x] Implement experimental fixed garrison building, production methods, monthly effects and localization.
-- [x] Add reproducible generator, model checks and experimental packaging.
-- [ ] Run local game logs / build tests in 1.13.11.
-- [ ] Run local game logs / build tests in requested 1.14 exact patch (available evidence is open beta).
-- [ ] Verify negative radical effect and loyalist bookkeeping; calibrate before public release.
-- [ ] Test ownership/occupation, shortages, workforce counts and integration gates.
-- [ ] Profile late-game tick costs, AI adoption and multiplayer.
-- [ ] Consider family compound/civic-service production method after base costs are validated.
-- [ ] Add field army HQ pool allocation as a separately named mode if useful.
+- [x] Preserve fixed dedicated local employment; no deployable field units.
+- [x] Add civic-service production method and extra goods costs.
+- [x] Add 20%/50% coverage gates and separate 3/6-check qualifications.
+- [x] Implement decay, two-check interruption resets, ownership/control cleanup and v0.2 history migration.
+- [x] Bound deradicalization by existing stock and remaining floor room.
+- [x] Implement qualified-neutral loyalty targets in the independent model.
+- [x] Guard negative runtime political calls off by default; omit unfiltered loyalty mutations.
+- [x] Generate versioned experimental packages and localizations from balance.json.
+- [x] Compare arithmetic and actual scripted control flow with independent model fixtures.
+- [ ] Verify engine loading, government payroll, counted workforce and infrastructure in each exact target patch.
+- [ ] Validate negative radical effect bookkeeping, then decide whether to enable it.
+- [ ] Prove a qualified-neutral runtime adapter before enabling loyalty population effects.
+- [ ] Add reliable uptime sampling and verify any production-method/owner event scopes.
+- [ ] Prove building-local shortage severity before replacing boolean fallback.
+- [ ] Verify police/decree stacking and residual penalty bounds.
+- [ ] Profile AI adoption, saves, late-game performance and multiplayer.
+- [ ] Consider HQ field-army allocation with conserved total manpower.

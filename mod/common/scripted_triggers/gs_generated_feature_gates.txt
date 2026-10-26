@@ -1,0 +1,2 @@
+# Generated; negative political effects require engine-bookkeeping validation.
+gs_radical_effects_enabled = { always = no }

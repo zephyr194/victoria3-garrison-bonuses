@@ -1,4 +1,4 @@
 pmg_gs_service = {
-    production_methods = { pm_gs_active pm_gs_standby }
+    production_methods = { pm_gs_active pm_gs_civic pm_gs_standby }
     texture = "gfx/interface/icons/building_icons/building_barracks.dds"
 }

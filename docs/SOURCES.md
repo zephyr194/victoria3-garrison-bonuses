@@ -38,3 +38,13 @@ The state effects document describes movement towards radicalism/loyalism but do
 ## Still unverified
 
 Actual engine loading, building schema and government payroll, employment-filter workforce accuracy, negative political-effect semantics, partial occupation/controller behavior, descriptor loading, icon paths, stacking with police/decrees, AI adoption, save/load, multiplayer and performance. All rates and costs are project design proposals, not sourced vanilla numbers.
+
+## v0.3 additional interface review · 2026-10-26
+
+The same versioned effects/triggers/modifiers blobs were re-read, with matching SHAs. Both modifier snapshots contain goods_input_services_add. Both trigger snapshots expose building_has_goods_shortage (building boolean), market_goods_shortage_ratio (market_goods, not building-local severity), and pop_neutral_fraction/pop_radical_fraction/pop_loyalist_fraction/pop_acceptance (pop scope).
+
+The state loyalist effect lists optional IG/type/strata/culture/religion filters but no proven arbitrary per-pop neutral-only adapter. Expected-SoL and acceptance eligibility cannot be inferred solely from a state-average gate. No direct loyalist mutation was added. Negative radical semantics remain unverified, so the runtime call is off by default.
+
+change_variable supports signed add/subtract and clamp_variable provides explicit bounds. The monthly country hook is retained; unverified production-method/owner event scope was not invented. This still does not prove uptime between observations or correct numeric reads from triggers.
+
+See evidence/bindings.json additional_review for verified names and explicit adapter gaps. No model or control-flow harness result is game-runtime evidence.

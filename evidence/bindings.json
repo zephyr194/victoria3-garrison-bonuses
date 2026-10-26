@@ -110,6 +110,26 @@
             {
               "key": "any_scope_building",
               "present": true
+            },
+            {
+              "key": "pop_neutral_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_radical_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_loyalist_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_acceptance",
+              "present": true
+            },
+            {
+              "key": "market_goods_shortage_ratio",
+              "present": true
             }
           ]
         },
@@ -181,6 +201,10 @@
             },
             {
               "key": "goods_input_paper_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_services_add",
               "present": true
             }
           ]
@@ -304,6 +328,26 @@
             {
               "key": "any_scope_building",
               "present": true
+            },
+            {
+              "key": "pop_neutral_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_radical_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_loyalist_fraction",
+              "present": true
+            },
+            {
+              "key": "pop_acceptance",
+              "present": true
+            },
+            {
+              "key": "market_goods_shortage_ratio",
+              "present": true
             }
           ]
         },
@@ -376,6 +420,10 @@
             {
               "key": "goods_input_paper_add",
               "present": true
+            },
+            {
+              "key": "goods_input_services_add",
+              "present": true
             }
           ]
         },
@@ -391,5 +439,17 @@
         }
       }
     }
+  },
+  "additional_review": {
+    "date": "2026-10-26",
+    "snapshots": [
+      "1.13.11",
+      "1.14.5-openbeta"
+    ],
+    "building_shortage": "boolean only; market severity is not a local-building adapter",
+    "qualified_neutral_loyalty_adapter_verified": false,
+    "negative_radical_bookkeeping_verified": false,
+    "continuous_uptime_verified": false,
+    "police_stacking_verified": false
   }
 }
