@@ -9,5 +9,14 @@
       "docs_snapshot": "1.14.5-openbeta",
       "game_verified": false
     }
+  },
+  "runtime_features": {
+    "order_and_costs": "experimental, enabled",
+    "qualification_history": "monthly observations, schema 3",
+    "deradicalization": "implemented experimental call; disabled by default",
+    "qualified_neutral_loyalty": "model-only; no runtime population mutation",
+    "graded_supply": "not implemented; verified boolean fallback",
+    "continuous_uptime": "not proven",
+    "police_stacking": "not game-tested"
   }
 }

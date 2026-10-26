@@ -9,7 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def generated_files():
     config = json.loads((ROOT / 'balance.json').read_text())
-    numeric = {k: v for k, v in config.items() if isinstance(v, (int, float))}
+    if type(config['experimental_radical_effects_enabled']) is not bool:
+        raise ValueError('experimental_radical_effects_enabled must be a JSON boolean')
+    if config['supply_policy'] != 'boolean_block':
+        raise ValueError('Only the verified building-shortage boolean adapter is implemented')
+    numeric = {k: v for k, v in config.items() if type(v) in (int, float)}
     constants = {f'gs_{k}': v for k, v in numeric.items()}
     step = Decimal(str(config['tier_step']))
     count = int(Decimal(str(config['maximum_penalty_relief'])) / step)
@@ -43,44 +47,77 @@ building_gs_garrison = {{
 }}
 '''
     outputs['mod/common/production_method_groups/gs_garrison_groups.txt'] = f'''pmg_gs_service = {{
-    production_methods = {{ pm_gs_active pm_gs_standby }}
+    production_methods = {{ pm_gs_active pm_gs_civic pm_gs_standby }}
     texture = "{icon}"
 }}
 '''
-    outputs['mod/common/production_methods/gs_garrison_methods.txt'] = f'''# Jobs scale by level. Goods scale by actual staffing. Footprint is fixed.
-pm_gs_active = {{
+    methods = '# Generated; jobs and footprint scale by level; goods by actual workforce.\n'
+    for name, extra in [('pm_gs_active', {}), ('pm_gs_civic', config['civic_input_goods_per_level'])]:
+        goods = dict(config['input_goods_per_level'])
+        for key, value in extra.items():
+            goods[key] = goods.get(key, 0) + value
+        inputs = ''.join(f'            goods_input_{key}_add = {value}\n' for key, value in goods.items())
+        default = '    is_default = yes\n' if name == 'pm_gs_active' else ''
+        methods += f'''{name} = {{
     texture = "{icon}"
-    is_default = yes
-    building_modifiers = {{
+{default}    building_modifiers = {{
         level_scaled = {{
             building_employment_soldiers_add = {jobs - officers}
             building_employment_officers_add = {officers}
         }}
         workforce_scaled = {{
-            goods_input_small_arms_add = {config['input_goods_per_level']['small_arms']}
-            goods_input_grain_add = {config['input_goods_per_level']['grain']}
-            goods_input_fabric_add = {config['input_goods_per_level']['fabric']}
-            goods_input_paper_add = {config['input_goods_per_level']['paper']}
-        }}
+{inputs}        }}
     }}
     state_modifiers = {{
         level_scaled = {{ state_infrastructure_add = -{infra} }}
     }}
 }}
 
-pm_gs_standby = {{
+'''
+    methods += f'''pm_gs_standby = {{
     texture = "{icon}"
     state_modifiers = {{
         level_scaled = {{ state_infrastructure_add = -{infra} }}
     }}
 }}
 '''
-    for lang, texts in {
-        'simp_chinese': ('卫戍营区', '卫戍勤务', '常备卫戍', '封存营区', '固定地方卫戍岗位，不生成野战部队。月度结算，军需短缺时停止治理收益。', '关闭岗位和治理收益，但保留基础设施占用。', '地方驻军维持秩序', '减少动乱惩罚；不代表动乱率立即下降。月度更新，连续服务后可产生有条件的长期政治态度变化。'),
-        'english': ('Garrison Compound', 'Garrison Service', 'Standing Garrison', 'Mothballed Compound', 'Fixed local security employment; creates no field battalions. Benefits update monthly and stop during input shortages.', 'Closes jobs and governance benefits. The physical infrastructure footprint remains.', 'Local Garrison Order', 'Reduces penalties from turmoil, not the turmoil rate directly. Updated monthly; continuous service can enable conditional long-term political effects.')
-    }.items():
-        b, group, active, standby, desc, idle_desc, order, order_desc = texts
-        entries = {'building_gs_garrison': b, 'building_gs_garrison_desc': desc, 'pmg_gs_service': group, 'pm_gs_active': active, 'pm_gs_active_desc': desc, 'pm_gs_standby': standby, 'pm_gs_standby_desc': idle_desc}
+    outputs['mod/common/production_methods/gs_garrison_methods.txt'] = methods
+    enabled = 'yes' if config['experimental_radical_effects_enabled'] else 'no'
+    outputs['mod/common/scripted_triggers/gs_generated_feature_gates.txt'] = (
+        '# Generated; negative political effects require engine-bookkeeping validation.\n'
+        f'gs_radical_effects_enabled = {{ always = {enabled} }}\n'
+    )
+    for lang in ['simp_chinese', 'english']:
+        if lang == 'simp_chinese':
+            radical_status = ('实验去激进效果已启用，仅供测试。' if config['experimental_radical_effects_enabled'] else '本实验版本未启用直接去激进效果。')
+            entries = {
+                'building_gs_garrison': '卫戍营区',
+                'building_gs_garrison_desc': f'固定地方卫戍岗位，不生成野战部队。按月检查人员与军需，减轻动乱惩罚。{radical_status}当前不直接增加忠诚人口。',
+                'pmg_gs_service': '卫戍勤务',
+                'pm_gs_active': '常备卫戍',
+                'pm_gs_active_desc': f"按实际就业维持秩序；覆盖至少{config['deradicalization_minimum_coverage']*100:g}%时积累去激进资格。{radical_status}常备卫戍不积累军民服务资格。",
+                'pm_gs_civic': '军民服务',
+                'pm_gs_civic_desc': f"额外投入粮食、布料、纸张及服务；覆盖至少{config['loyalty_minimum_coverage']*100:g}%且整合、动乱与生活条件达标时积累军民服务资格。当前仅记录军民服务资格，暂不提供直接增加忠诚人口的收益。",
+                'pm_gs_standby': '封存营区',
+                'pm_gs_standby_desc': f"关闭岗位与治理收益。每级仍预留{infra:g}基础设施；拆除后释放。停运连续{config['interruption_reset_months']}次月检后资格清零。",
+            }
+            order = '地方驻军维持秩序'
+            order_desc = '减轻动乱惩罚，不直接降低动乱率。每月替换修正；停工、短缺或失控在下次月检清理。此数值为营区自身减免，不代表所有治安来源的最终合计。'
+        else:
+            radical_status = ('Experimental deradicalization is enabled for testing.' if config['experimental_radical_effects_enabled'] else 'Direct deradicalization is not enabled in this experimental build.')
+            entries = {
+                'building_gs_garrison': 'Garrison Compound',
+                'building_gs_garrison_desc': f'Fixed local security jobs, not field battalions. Monthly staff and supply checks reduce turmoil penalties. {radical_status} No direct loyalist gain.',
+                'pmg_gs_service': 'Garrison Service',
+                'pm_gs_active': 'Standing Garrison',
+                'pm_gs_active_desc': f"Order follows employed staff. Security qualification requires at least {config['deradicalization_minimum_coverage']*100:g}% coverage. {radical_status} This mode earns no civic qualification.",
+                'pm_gs_civic': 'Civic Service',
+                'pm_gs_civic_desc': f"Adds grain, fabric, paper and services. Civic qualification requires {config['loyalty_minimum_coverage']*100:g}% coverage, incorporation, low turmoil and adequate living conditions. Currently records civic qualification only; provides no direct loyalist gain yet.",
+                'pm_gs_standby': 'Mothballed Compound',
+                'pm_gs_standby_desc': f"No jobs or benefits. Reserves {infra:g} infrastructure per level until demolished. Qualification resets after {config['interruption_reset_months']} interrupted monthly checks.",
+            }
+            order = 'Local Garrison Order'
+            order_desc = 'Reduces turmoil penalties, not the turmoil rate. Replaced monthly; closure, shortages or loss of control clear it on the next check. This is the compound contribution, not the final combined relief from all sources.'
         for i, value in tiers:
             entries[f'gs_order_{i}'] = f'{order} ({value * 100:g}%)'
             entries[f'gs_order_{i}_desc'] = order_desc

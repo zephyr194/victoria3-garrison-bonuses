@@ -1,4 +1,4 @@
-# Jobs scale by level. Goods scale by actual staffing. Footprint is fixed.
+# Generated; jobs and footprint scale by level; goods by actual workforce.
 pm_gs_active = {
     texture = "gfx/interface/icons/building_icons/building_barracks.dds"
     is_default = yes
@@ -12,6 +12,26 @@ pm_gs_active = {
             goods_input_grain_add = 10
             goods_input_fabric_add = 5
             goods_input_paper_add = 2
+        }
+    }
+    state_modifiers = {
+        level_scaled = { state_infrastructure_add = -2 }
+    }
+}
+
+pm_gs_civic = {
+    texture = "gfx/interface/icons/building_icons/building_barracks.dds"
+    building_modifiers = {
+        level_scaled = {
+            building_employment_soldiers_add = 950
+            building_employment_officers_add = 50
+        }
+        workforce_scaled = {
+            goods_input_small_arms_add = 5
+            goods_input_grain_add = 15
+            goods_input_fabric_add = 7
+            goods_input_paper_add = 4
+            goods_input_services_add = 5
         }
     }
     state_modifiers = {

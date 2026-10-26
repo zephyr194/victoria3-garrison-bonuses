@@ -1,5 +1,5 @@
-# 实现计划 v0.2
+# 实现计划 v0.3
 
-用户于 2026-10-26 扩大范围，当前实施阶段与路线见 [docs/ROADMAP.md](docs/ROADMAP.md)，机制见 [docs/DESIGN.zh-CN.md](docs/DESIGN.zh-CN.md)，技术契约见 [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md)。
+2026-10-26已将军民服务、覆盖门槛、独立资格记录、人口库存限幅及旧版记录迁移落实到实验代码。当前启用秩序收益与成本；去激进负数调用默认关闭，忠诚人口定向适配仍未接入。不能据此声称完整人口效果已可用。
 
-当前已编写固定卫戍实验脚本；两版游戏运行验证仍未完成。
+机制、实现及待验证项目分别维护在 [设计](docs/DESIGN.zh-CN.md)、[技术实现](docs/IMPLEMENTATION.md)、[路线](docs/ROADMAP.md) 和 [验收](docs/VALIDATION.md)。
