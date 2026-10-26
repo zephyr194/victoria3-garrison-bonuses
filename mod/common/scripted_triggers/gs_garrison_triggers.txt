@@ -1,0 +1,19 @@
+# State scope. Local dedicated personnel; never counts field armies.
+gs_state_service_eligible = {
+    exists = owner
+    exists = controller
+    controller = owner
+    state_population > 0
+    any_scope_building = {
+        is_building_type = building_gs_garrison
+        has_active_production_method = pm_gs_active
+        building_has_goods_shortage = no
+    }
+}
+
+gs_loyalty_conditions = {
+    is_incorporated = yes
+    turmoil <= gs_loyalty_max_turmoil
+    population_below_expected_sol <= gs_maximum_population_below_expected_sol
+    loyalists < gs_loyalist_ceiling
+}

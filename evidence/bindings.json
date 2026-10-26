@@ -1,0 +1,395 @@
+{
+  "review_date": "2026-10-26",
+  "upstream": "Victoria-3-Modding-Co-op/Modding-Digests",
+  "meaning": "Definition presence in published generated game documentation; not game-runtime verification",
+  "snapshots": {
+    "1.13.11": {
+      "files": {
+        "effects.log": {
+          "path": "1.13.11/docs/effects.log",
+          "blob_sha": "5e1e75c42e9efa2fe18cd56025a7289b73765c1f",
+          "bindings": [
+            {
+              "key": "add_radicals_in_state",
+              "present": true
+            },
+            {
+              "key": "add_loyalists_in_state",
+              "present": true
+            },
+            {
+              "key": "add_modifier",
+              "present": true
+            },
+            {
+              "key": "remove_modifier",
+              "present": true
+            },
+            {
+              "key": "every_scope_state",
+              "present": true
+            },
+            {
+              "key": "every_scope_pop",
+              "present": true
+            },
+            {
+              "key": "save_scope_as",
+              "present": true
+            },
+            {
+              "key": "set_variable",
+              "present": true
+            },
+            {
+              "key": "change_variable",
+              "present": true
+            },
+            {
+              "key": "clamp_variable",
+              "present": true
+            },
+            {
+              "key": "remove_variable",
+              "present": true
+            },
+            {
+              "key": "every_military_formation",
+              "present": true
+            },
+            {
+              "key": "every_combat_unit",
+              "present": true
+            }
+          ]
+        },
+        "triggers.log": {
+          "path": "1.13.11/docs/triggers.log",
+          "blob_sha": "e7d611ca9b359b54842252d3587551190226e6e6",
+          "bindings": [
+            {
+              "key": "state_population",
+              "present": true
+            },
+            {
+              "key": "workforce",
+              "present": true
+            },
+            {
+              "key": "pop_employment_building",
+              "present": true
+            },
+            {
+              "key": "is_building_type",
+              "present": true
+            },
+            {
+              "key": "has_active_production_method",
+              "present": true
+            },
+            {
+              "key": "building_has_goods_shortage",
+              "present": true
+            },
+            {
+              "key": "is_incorporated",
+              "present": true
+            },
+            {
+              "key": "turmoil",
+              "present": true
+            },
+            {
+              "key": "loyalists",
+              "present": true
+            },
+            {
+              "key": "has_variable",
+              "present": true
+            },
+            {
+              "key": "any_scope_building",
+              "present": true
+            }
+          ]
+        },
+        "event_targets.log": {
+          "path": "1.13.11/docs/event_targets.log",
+          "blob_sha": "a419253b5cd0d66310adb082767016fd2acde8c5",
+          "bindings": [
+            {
+              "key": "current_hq",
+              "present": true
+            },
+            {
+              "key": "home_hq",
+              "present": true
+            },
+            {
+              "key": "land_hq",
+              "present": true
+            },
+            {
+              "key": "manpower",
+              "present": true
+            },
+            {
+              "key": "owner",
+              "present": true
+            },
+            {
+              "key": "controller",
+              "present": true
+            },
+            {
+              "key": "population_below_expected_sol",
+              "present": true
+            }
+          ]
+        },
+        "modifiers.log": {
+          "path": "1.13.11/docs/modifiers.log",
+          "blob_sha": "38e0d557a17a61ec73b84185db2727680fd79519",
+          "bindings": [
+            {
+              "key": "state_turmoil_effects_mult",
+              "present": true
+            },
+            {
+              "key": "state_infrastructure_add",
+              "present": true
+            },
+            {
+              "key": "building_employment_soldiers_add",
+              "present": true
+            },
+            {
+              "key": "building_employment_officers_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_small_arms_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_grain_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_fabric_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_paper_add",
+              "present": true
+            }
+          ]
+        },
+        "on_actions.log": {
+          "path": "1.13.11/docs/on_actions.log",
+          "blob_sha": "5d7a1925e237abdedfa35dc880b3a2a110a40b56",
+          "bindings": [
+            {
+              "key": "on_monthly_pulse_country",
+              "present": true
+            }
+          ]
+        }
+      }
+    },
+    "1.14.5-openbeta": {
+      "files": {
+        "effects.log": {
+          "path": "1.14.5-openbeta/docs/effects.log",
+          "blob_sha": "07de0e146e248d9f1b535b00185112c3bdc258de",
+          "bindings": [
+            {
+              "key": "add_radicals_in_state",
+              "present": true
+            },
+            {
+              "key": "add_loyalists_in_state",
+              "present": true
+            },
+            {
+              "key": "add_modifier",
+              "present": true
+            },
+            {
+              "key": "remove_modifier",
+              "present": true
+            },
+            {
+              "key": "every_scope_state",
+              "present": true
+            },
+            {
+              "key": "every_scope_pop",
+              "present": true
+            },
+            {
+              "key": "save_scope_as",
+              "present": true
+            },
+            {
+              "key": "set_variable",
+              "present": true
+            },
+            {
+              "key": "change_variable",
+              "present": true
+            },
+            {
+              "key": "clamp_variable",
+              "present": true
+            },
+            {
+              "key": "remove_variable",
+              "present": true
+            },
+            {
+              "key": "every_military_formation",
+              "present": true
+            },
+            {
+              "key": "every_combat_unit",
+              "present": true
+            }
+          ]
+        },
+        "triggers.log": {
+          "path": "1.14.5-openbeta/docs/triggers.log",
+          "blob_sha": "ac38222e5d6abd712a91b579a57194b50b5489c5",
+          "bindings": [
+            {
+              "key": "state_population",
+              "present": true
+            },
+            {
+              "key": "workforce",
+              "present": true
+            },
+            {
+              "key": "pop_employment_building",
+              "present": true
+            },
+            {
+              "key": "is_building_type",
+              "present": true
+            },
+            {
+              "key": "has_active_production_method",
+              "present": true
+            },
+            {
+              "key": "building_has_goods_shortage",
+              "present": true
+            },
+            {
+              "key": "is_incorporated",
+              "present": true
+            },
+            {
+              "key": "turmoil",
+              "present": true
+            },
+            {
+              "key": "loyalists",
+              "present": true
+            },
+            {
+              "key": "has_variable",
+              "present": true
+            },
+            {
+              "key": "any_scope_building",
+              "present": true
+            }
+          ]
+        },
+        "event_targets.log": {
+          "path": "1.14.5-openbeta/docs/event_targets.log",
+          "blob_sha": "b9c3e48b16f9d5a92f93a003a718bd2441ae4c9c",
+          "bindings": [
+            {
+              "key": "current_hq",
+              "present": true
+            },
+            {
+              "key": "home_hq",
+              "present": true
+            },
+            {
+              "key": "land_hq",
+              "present": true
+            },
+            {
+              "key": "manpower",
+              "present": true
+            },
+            {
+              "key": "owner",
+              "present": true
+            },
+            {
+              "key": "controller",
+              "present": true
+            },
+            {
+              "key": "population_below_expected_sol",
+              "present": true
+            }
+          ]
+        },
+        "modifiers.log": {
+          "path": "1.14.5-openbeta/docs/modifiers.log",
+          "blob_sha": "58dd43f18217bc8b0a588646d202fb820f60b19a",
+          "bindings": [
+            {
+              "key": "state_turmoil_effects_mult",
+              "present": true
+            },
+            {
+              "key": "state_infrastructure_add",
+              "present": true
+            },
+            {
+              "key": "building_employment_soldiers_add",
+              "present": true
+            },
+            {
+              "key": "building_employment_officers_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_small_arms_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_grain_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_fabric_add",
+              "present": true
+            },
+            {
+              "key": "goods_input_paper_add",
+              "present": true
+            }
+          ]
+        },
+        "on_actions.log": {
+          "path": "1.14.5-openbeta/docs/on_actions.log",
+          "blob_sha": "2fd04696af6c06af4ae8661b232bbe860a5366ee",
+          "bindings": [
+            {
+              "key": "on_monthly_pulse_country",
+              "present": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+# State scope. Historical political changes are not temporary modifiers.
+gs_reset_service = {
+    remove_variable = gs_service_months
+    remove_variable = gs_service_owner
+}
+
+gs_update_state = {
+    gs_clear_order = yes
+    if = {
+        limit = {
+            has_variable = gs_service_owner
+            NOT = { var:gs_service_owner = owner }
+        }
+        gs_reset_service = yes
+    }
+    if = {
+        limit = { gs_state_service_eligible = yes }
+        set_variable = { name = gs_staff value = gs_staff }
+        if = {
+            limit = { var:gs_staff > 0 }
+            set_variable = { name = gs_service_owner value = owner }
+            if = {
+                limit = { NOT = { has_variable = gs_service_months } }
+                set_variable = { name = gs_service_months value = 0 }
+            }
+            change_variable = { name = gs_service_months add = 1 }
+            clamp_variable = { name = gs_service_months min = 0 max = gs_loyalty_delay_months }
+            set_variable = { name = gs_relief value = gs_relief }
+            gs_apply_order = yes
+            if = {
+                limit = {
+                    var:gs_service_months >= gs_deradicalization_delay_months
+                    turmoil > gs_radical_floor
+                }
+                add_radicals_in_state = { value = gs_radical_delta }
+            }
+            if = {
+                limit = {
+                    var:gs_service_months >= gs_loyalty_delay_months
+                    gs_loyalty_conditions = yes
+                }
+                add_loyalists_in_state = { value = gs_loyalist_delta }
+            }
+        }
+        else = { gs_reset_service = yes }
+    }
+    else = { gs_reset_service = yes }
+    remove_variable = gs_staff
+    remove_variable = gs_relief
+}

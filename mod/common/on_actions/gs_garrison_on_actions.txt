@@ -1,0 +1,12 @@
+# Append a namespaced child; do not replace the vanilla effect block.
+on_monthly_pulse_country = {
+    on_actions = { gs_monthly_country }
+}
+
+gs_monthly_country = {
+    effect = {
+        every_scope_state = {
+            gs_update_state = yes
+        }
+    }
+}

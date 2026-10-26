@@ -1,0 +1,53 @@
+# State scope. Employment filters exclude other buildings and dependents.
+gs_staff = {
+    value = 0
+    every_scope_pop = {
+        limit = { pop_employment_building = building_gs_garrison }
+        add = workforce
+    }
+}
+
+gs_required_staff = {
+    value = state_population
+    multiply = gs_soldiers_per_population
+    min = gs_minimum_required_soldiers
+}
+
+gs_coverage = {
+    value = var:gs_staff
+    divide = gs_required_staff
+    max = 1
+    min = 0
+}
+
+gs_relief = {
+    value = 2
+    subtract = gs_coverage
+    multiply = gs_coverage
+    multiply = gs_maximum_penalty_relief
+    divide = gs_tier_step
+    floor = yes
+    multiply = gs_tier_step
+}
+
+# Negative state effect is experimental: verify actual population bookkeeping.
+gs_radical_delta = {
+    value = turmoil
+    subtract = gs_radical_floor
+    min = 0
+    max = {
+        value = gs_monthly_radical_reduction
+        multiply = gs_coverage
+    }
+    multiply = -1
+}
+
+gs_loyalist_delta = {
+    value = gs_loyalist_ceiling
+    subtract = loyalists
+    min = 0
+    max = {
+        value = gs_monthly_loyalist_gain
+        multiply = gs_coverage
+    }
+}

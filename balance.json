@@ -1,0 +1,25 @@
+{
+  "soldiers_per_population": 0.01,
+  "minimum_required_soldiers": 1000,
+  "maximum_penalty_relief": 0.4,
+  "tier_step": 0.05,
+  "update_interval": "monthly",
+  "jobs_per_level": 1000,
+  "infrastructure_per_level": 2,
+  "deradicalization_delay_months": 3,
+  "loyalty_delay_months": 6,
+  "monthly_radical_reduction": 0.001,
+  "radical_floor": 0.05,
+  "monthly_loyalist_gain": 0.0005,
+  "loyalist_ceiling": 0.4,
+  "loyalty_max_turmoil": 0.2,
+  "maximum_population_below_expected_sol": 0.2,
+  "construction_points_per_level": 200,
+  "officer_share": 0.05,
+  "input_goods_per_level": {
+    "small_arms": 5,
+    "grain": 10,
+    "fabric": 5,
+    "paper": 2
+  }
+}

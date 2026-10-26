@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+*.v3
+error.log
+game.log
+.DS_Store
