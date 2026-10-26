@@ -1,6 +1,6 @@
 # Development contract
 
-- Read README.md and docs/DESIGN.zh-CN.md before changes.
+- Read README.md and DESIGN.md before changes.
 - User changed scope on 2026-10-26: positive effects include lower turmoil penalties, fewer radicals and more loyalists; costs include infrastructure; research permanent facilities.
 - Current experimental implementation is a **dedicated fixed local security workforce**, not field armies, barracks recruitment, or a fictional exact army-to-state mapping.
 - No UI redesign is requested. Use existing in-game building and modifier surfaces.

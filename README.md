@@ -36,7 +36,7 @@ python3 scripts/package.py --target 1.14 --experimental
 唯一数值源为 `balance.json`。生成文件需由生成器更新。脚本分支测试执行项目实际文本，但不验证游戏作用域、加载、人口语义或多人同步。未记录游戏验证前禁止正式包。
 
 ## 文档
-- [机制与实现边界](docs/DESIGN.zh-CN.md)
+- [机制与实现边界](DESIGN.md)
 - [技术实现](docs/IMPLEMENTATION.md)
 - [驻军定位研究](docs/RESEARCH.zh-CN.md)
 - [来源与接口证据](docs/SOURCES.md)

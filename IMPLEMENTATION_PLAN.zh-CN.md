@@ -2,4 +2,4 @@
 
 2026-10-26已将军民服务、覆盖门槛、独立资格记录、人口库存限幅及旧版记录迁移落实到实验代码。当前启用秩序收益与成本；去激进负数调用默认关闭，忠诚人口定向适配仍未接入。不能据此声称完整人口效果已可用。
 
-机制、实现及待验证项目分别维护在 [设计](docs/DESIGN.zh-CN.md)、[技术实现](docs/IMPLEMENTATION.md)、[路线](docs/ROADMAP.md) 和 [验收](docs/VALIDATION.md)。
+机制、实现及待验证项目分别维护在 [设计](DESIGN.md)、[技术实现](docs/IMPLEMENTATION.md)、[路线](docs/ROADMAP.md) 和 [验收](docs/VALIDATION.md)。
